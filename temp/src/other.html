@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            border-bottom: 1px solid gray;
+        }
+
+        footer {
+            border-top: 1px solid gray;
+        }
+
+        .content {
+            display: flex;
+        }
+
+        .content nav {
+            border-right: 1px solid gray;
+        }
+
+        .content aside {
+            border-left: 1px solid gray;
+        }
+
+        nav,
+        aside {
+
+            flex-basis: 200px;
+
+            flex-shrink: 0;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>제목</h1>
+        </header>
+        <section class="content">
+            <nav>
+                <ul>
+                    <li>html</li>
+                    <li>css</li>
+                    <li>js</li>
+                </ul>
+            </nav>
+            <main>
+                메인 내용이 들어가는 부분입니다~~~~~~~~~~
+            </main>
+            <aside>
+
+                광고
+            </aside>
+        </section>
+        <footer>
+            <a href="#">푸터</a>
+        </footer>
+    </div>
+</body>
+
+</html>
