@@ -5,7 +5,7 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -w"
+    "build": "webpack"
   },
   "keywords": [
     "for npm search"
@@ -16,8 +16,6 @@
     "@babel/polyfill": "^7.12.1",
     "axios": "^0.21.1",
     "babel": "^6.23.0",
-    "html-webpack-plugin": "^4.5.1",
-    "log4js": "^6.3.0",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"

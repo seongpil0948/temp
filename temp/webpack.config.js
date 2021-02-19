@@ -1,5 +1,4 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
 // bundle.js 파일에 컴파일된 css를 포함시키지 말고 별도의 css 파일로 분리해서 하나의 파일로 번들링해보자
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack'); //to access built-in plugins
@@ -55,7 +54,6 @@ const config =  {
         asset management and injection of environment variables.    
     */
     plugins: [
-        new HtmlWebpackPlugin({ template: './src/index.html' }),
         // 컴파일 + 번들링 CSS 파일이 저장될 경로와 이름 지정
         new MiniCssExtractPlugin({ filename: 'style.css' })        
     ]        
