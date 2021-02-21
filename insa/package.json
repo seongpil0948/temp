@@ -1,0 +1,21 @@
+{
+  "name": "insa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+    "build": "tsc",
+    "start": "npm run build && node ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sp",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "rimraf": "^3.0.2"
+  }
+}
