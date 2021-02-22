@@ -15,8 +15,12 @@ const config = {
         port: 5600
     },
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js'],
+        alias: {
+            '@': path.resolve(__dirname, '../src/'),
+        },
     },
+
     module: {
         rules: [
             {   //  files should be transformed.(변환해야할 파일)
@@ -25,24 +29,19 @@ const config = {
                 use: 'raw-loader'
             },
             {
-                test: /\.ts?$/,
-                use: "ts-loader",
+                test: /\.(js|ts|tsx)$/,
+                include: [
+                    path.resolve(__dirname, 'src/')
+                ],
                 exclude: /node_modules/,
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                        plugins: ['@babel/plugin-proposal-class-properties']
+                    }
+                }, 'ts-loader']
             },
-            // {
-            //     test: /\.js$/,
-            //     include: [
-            //         path.resolve(__dirname, 'src/')
-            //     ],
-            //     exclude: /node_modules/,
-            //     use: {
-            //         loader: 'babel-loader',
-            //         options: {
-            //             presets: ['@babel/preset-env'],
-            //             plugins: ['@babel/plugin-proposal-class-properties']
-            //         }
-            //     }
-            // },
             {
                 test: /\.scss$/,
                 use: [
@@ -61,7 +60,7 @@ const config = {
     */
     plugins: [
         // 컴파일 + 번들링 CSS 파일이 저장될 경로와 이름 지정
-        new MiniCssExtractPlugin({ filename: 'style.css' })
+        new MiniCssExtractPlugin({ filename: 'insaStyle.css' })
     ]
 };
 

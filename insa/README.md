@@ -10,3 +10,8 @@ Rimraf is a cross-platform equivalent for rm -rf
 
 all our packages using the --save-dev flag. In production, if we use
 `npm install --production` these packages will be skipped.
+
+
+# TODO
+1. webpack remove unnecessary options
+2. refactoring

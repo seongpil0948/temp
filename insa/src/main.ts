@@ -1,14 +1,8 @@
-import { exit } from "process";
-import { genImg } from "./img.js"
+import { genImg } from "./img"
 
 // Application div
 const appDiv = "good";
-const body = document.querySelector('body')
-if (!body) {
-    console.log("No Body!")
-    exit(1)
-}
-
+const body = document.querySelector('body')!
 const rootElement = document.createElement('div')
 rootElement.id = appDiv
 body.append(rootElement)
@@ -18,7 +12,7 @@ const axiosTag = document.createElement('script')
 axiosTag.src = "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
 body.append(axiosTag)
 const axios = require('axios');
-const sendMsg = (msg: string) => {
+const sendMsg = (msg: any) => {
     return axios.post("http://127.0.0.1:8000/resource/from_cafe/", { msg })
 }
 async function getWidget() {
