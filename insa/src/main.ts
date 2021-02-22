@@ -21,37 +21,36 @@ const axios = require('axios');
 const sendMsg = (msg: string) => {
     return axios.post("http://127.0.0.1:8000/resource/from_cafe/", { msg })
 }
-async function getWidget () {
+async function getWidget() {
     return await axios.get("http://127.0.0.1:8000/resource/widget/")
 }
+
 
 // === Serving Contents ====
 getWidget().then((res) => {
     const widgetDatas = res.data.results
     console.log(widgetDatas)
     const data = widgetDatas[widgetDatas.length - 1]
-    let myDiv = document.getElementById(appDiv);
+    let myDiv = document.getElementById(appDiv)!;
     let imgs = document.createElement('div')
-    imgs.style = `
-        position: absolute;
-        top: 50vh;
-        left: 32%;
-    `
-    imgs.id = 'intellisys-imgs'    
+    imgs.style.position = 'absolute'
+    imgs.style.top = '50vh'
+    imgs.style.left = '32%'
+    imgs.id = 'intellisys-imgs'
     // [0, 1, ..num_of_item]
     Array.from(Array(data.num_of_item).keys()).forEach(() => {
         imgs.append(genImg())
-    })    
+    })
     for (var i = 0; i < imgs.children.length; i++) {
         imgs.children[i].addEventListener("click", (evt) => {
-            const src = evt.target.getAttribute('src')
+            const src = (evt.target as HTMLImageElement).getAttribute('src')
             if (src) {
                 sendMsg(`${src.slice(10, 20)} 상품에 대한 클릭 이벤트가 발생 하였습니다`)
             }
         })
     }
     myDiv.innerHTML = "";
-    myDiv.append(imgs)    
+    myDiv.append(imgs)
 })
 
 // ============= Events ========
@@ -59,9 +58,8 @@ getWidget().then((res) => {
 window.addEventListener('load', (evt) => {
     const user = document.getElementsByClassName('xans-member-var-name')
     let loadMsg = ''
-    console.log('user:', user)
-    if (user.length > 0) {        
-        loadMsg = `사용자: ${user[0].textContent} 가 아이템: ${item_code} 페이지 입장 하였습니다`
+    if (user.length > 0) {
+        loadMsg = `사용자: ${user[0].textContent} 가 아이템: ${window.item_code} 페이지 입장 하였습니다`
     }
     console.log(loadMsg, JSON.parse(sessionStorage['member_1']))
     sendMsg(loadMsg)
@@ -81,22 +79,22 @@ window.addEventListener('scroll-stop', function (e) {
     sendMsg(msg)
 }, false);
 
-var timer = null;
+var timer: number | undefined = undefined;
 window.addEventListener('scroll', function () {
-    if (timer !== null) {
+    if (timer) {
         clearTimeout(timer);
     }
-    timer = setTimeout(function () {
+    timer = <any>setTimeout(function () {
         window.dispatchEvent(scrollStopEvent)
     }, 3000);
 }, false);
 
-window.onclose = (e) => {
+window.onclose = (e: Event) => {
     const msg = "사용자가 퇴장 하였습니다"
     sendMsg(msg)
 }
 
-window.onunload = (e) => {
+window.onunload = (e: Event) => {
     const msg = "href is change, unloaded" + document.location.href
     sendMsg(msg)
 }

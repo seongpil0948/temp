@@ -8,16 +8,12 @@ const getLink = (): string => {
     return links[idx]
 }
 
-interface HTMLImageElement {
-    src: any,
-    style: any,
-}
 
 const genImg = () => {
     const tag: HTMLImageElement = document.createElement('img')
     tag.src = getLink()
-    tag.style = 'max-height: 200px;'
+    tag.style.maxHeight = '200px'
     return tag
 }
 
-export {genImg}
+export { genImg }
