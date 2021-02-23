@@ -19,24 +19,38 @@ async function getWidget() {
     return await axios.get("http://127.0.0.1:8000/resource/widget/")
 }
 
+interface DataFromWidget {
+    id: number
+    shop: string
+    num_of_item: number
+    box_size: string
+    item_size: string
+    created_at: string
+    updated_at: string
+    custom_item_src?: string
+}
 
 // === Serving Contents ====
 getWidget().then((res) => {
     const widgetDatas = res.data.results
     console.log(widgetDatas)
-    const data = widgetDatas[widgetDatas.length - 1]
+    const data: DataFromWidget = widgetDatas[widgetDatas.length - 1]
+
     let myDiv = document.getElementById(appDiv)!;
     let imgs = document.createElement('div')
     imgs.style.position = 'absolute'
-    imgs.style.top = '50vh'
     imgs.style.left = '32%'
+    imgs.style.height = data.box_size
     imgs.id = 'intellisys-imgs'
+
     // [0, 1, ..num_of_item]
     Array.from(Array(data.num_of_item).keys()).forEach(() => {
         imgs.append(genImg())
     })
     for (var i = 0; i < imgs.children.length; i++) {
-        imgs.children[i].addEventListener("click", (evt) => {
+        let img = imgs.children[i] as HTMLImageElement
+        img.style.height = data.item_size
+        img.addEventListener("click", (evt) => {
             const src = (evt.target as HTMLImageElement).getAttribute('src')
             if (src) {
                 sendMsg(`${src.slice(10, 20)} 상품에 대한 클릭 이벤트가 발생 하였습니다`)

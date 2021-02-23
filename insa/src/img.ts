@@ -12,7 +12,6 @@ const getLink = (): string => {
 const genImg = () => {
     const tag: HTMLImageElement = document.createElement('img')
     tag.src = getLink()
-    tag.style.maxHeight = '200px'
     return tag
 }
 
