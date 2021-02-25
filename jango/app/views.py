@@ -28,4 +28,4 @@ class WidgetViewSet(viewsets.ModelViewSet):
     )
     ordering_fields = '__all__'
     search_fields = ['uuid']
-    ordering = ['updated_at', 'created_at']
+    ordering = ['-updated_at', 'created_at']
