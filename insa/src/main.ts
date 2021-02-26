@@ -7,16 +7,19 @@ const rootElement = document.createElement('div')
 rootElement.id = appDiv
 body.append(rootElement)
 
-// ===== Axios =====
+// ===== Axios && API =====
+const baseUrl = 'localhost:8000'
+// const baseUrl = 'pan.snu.ac.kr:8099'
+
 const axiosTag = document.createElement('script')
 axiosTag.src = "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
 body.append(axiosTag)
 const axios = require('axios');
 const sendMsg = (msg: any) => {
-    return axios.post("http://127.0.0.1:8000/resource/from_cafe/", { msg })
+    return axios.post(`${baseUrl}/from_cafe/`, { msg })
 }
 async function getWidget() {
-    return await axios.get("http://127.0.0.1:8000/resource/widget/")
+    return await axios.get(`${baseUrl}/insa/widget/`)
 }
 
 interface DataFromWidget {
@@ -28,6 +31,8 @@ interface DataFromWidget {
     created_at: string
     updated_at: string
     custom_item_src?: string
+    margin_top: string
+    margin_left: string
 }
 
 // === Serving Contents ====
@@ -39,7 +44,8 @@ getWidget().then((res) => {
     let myDiv = document.getElementById(appDiv)!;
     let imgs = document.createElement('div')
     imgs.style.position = 'absolute'
-    imgs.style.left = '32%'
+    imgs.style.top = data.margin_top
+    imgs.style.left = data.margin_left
     imgs.style.height = data.box_size
     imgs.id = 'intellisys-imgs'
 

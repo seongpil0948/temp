@@ -1,19 +1,27 @@
 const path = require('path');
 // bundle.js 파일에 컴파일된 css를 포함시키지 말고 별도의 css 파일로 분리해서 하나의 파일로 번들링해보자
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require('webpack'); //to access built-in plugins
+const webpack = require('webpack') 
 
-const config = {
-    devtool: 'source-map',
-    // https://webpack.js.org/concepts/mode/#mode-development
-    mode: 'production',
-    devServer: {
-        contentBase: __dirname + "/dist/",
-        inline: true,
-        hot: true,
-        host: "localhost",
-        port: 5600
-    },
+module.exports = (env, argv) => {
+    console.log("ENV +++++++ ", argv.mode)
+    let outputPath, devTool 
+    if (argv.mode === 'production') {
+        outputPath = '../saas-web-server/app/static'
+        console.log("=== Webpack Production Mode ===")
+    } else {
+        outputPath = './dist'
+        devTool = 'source-map'
+        console.log("=== Webpack Develope Mode ===")
+    }
+    
+    return {
+    devtool: devTool,
+    entry: ['./src/main.ts', './src/styles/main.scss'],
+    output: {
+        filename: 'intellisys.js',
+        path: path.resolve(__dirname, outputPath),
+    },        
     resolve: {
         extensions: ['.ts', '.js'],
         alias: {
@@ -23,7 +31,7 @@ const config = {
 
     module: {
         rules: [
-            {   //  files should be transformed.(변환해야할 파일)
+            {   //  files should be transformed.(로더가 적용되어 변활 될 파일)
                 test: /\.txt$/,
                 // used to do the transforming
                 use: 'raw-loader'
@@ -53,31 +61,10 @@ const config = {
             }
         ]
     },
-    /*
-        Plugins leveraged to perform(수행하는데 사용된다)
-        a wider range of tasks like bundle optimization,
-        asset management and injection of environment variables.    
-    */
     plugins: [
         // 컴파일 + 번들링 CSS 파일이 저장될 경로와 이름 지정
         new MiniCssExtractPlugin({ filename: 'insaStyle.css' })
-    ]
+    ]        
+    }    
 };
 
-const a = Object.assign({}, config, {
-    entry: ['./src/main.ts', './src/styles/main.scss'],
-    // webpack 이 적용되어 나와야 할 경로
-    output: {
-        filename: 'intellisys.js',
-        path: path.resolve(__dirname, 'dist'),
-    },
-})
-const b = Object.assign({}, config, {
-    entry: ['./src/main.ts', './src/styles/main.scss'],
-    // webpack 이 적용되어 나와야 할 경로
-    output: {
-        filename: 'intellisys.js',
-        path: path.resolve(__dirname, '../jango/app/static'),
-    },
-})
-module.exports = [a, b]

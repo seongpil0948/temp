@@ -1,4 +1,4 @@
-cd ../temp/
+cd ../insa/
 npm run build
 
 cd ../jango/

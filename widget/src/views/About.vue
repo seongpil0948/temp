@@ -61,6 +61,15 @@ export default {
           label: `상자의 추천 아이템 개수`,
           value: null
         },
+        margin_top: {
+          label: `상자의 위치 Y`,
+          value: null
+        },
+        margin_left: {
+          label: `상자의 위치 X`,
+          value: null
+        },
+
       },
       content: {
         size: {
